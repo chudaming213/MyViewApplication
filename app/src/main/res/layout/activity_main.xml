@@ -12,9 +12,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Flexboxlayout" />
+
     <Button
-    android:id="@+id/constraintlayout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Constraintlayout" />
+        android:id="@+id/constraintlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Constraintlayout" />
+
+    <Button
+        android:id="@+id/svg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="svg" />
 </LinearLayout>

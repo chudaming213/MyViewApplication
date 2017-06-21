@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".viewactivities.FlexboxlayoutActivity" />
-        <activity android:name=".viewactivities.ConstraintlayoutActivity"></activity>
+        <activity android:name=".viewactivities.ConstraintlayoutActivity" />
+        <activity android:name=".viewactivities.SVGActivity"></activity>
     </application>
 
 </manifest>

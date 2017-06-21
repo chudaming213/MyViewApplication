@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.onon.test.myviewapplication.viewactivities.ConstraintlayoutActivity;
 import com.onon.test.myviewapplication.viewactivities.FlexboxlayoutActivity;
+import com.onon.test.myviewapplication.viewactivities.SVGActivity;
 
 public class MainActivity extends Activity {
 
@@ -25,6 +26,12 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ConstraintlayoutActivity.class));
+            }
+        });
+        findViewById(R.id.svg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SVGActivity.class));
             }
         });
     }
