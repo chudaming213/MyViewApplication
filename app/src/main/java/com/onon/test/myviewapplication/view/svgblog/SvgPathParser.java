@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.onon.test.myviewapplication.svgblog;
+package com.onon.test.myviewapplication.view.svgblog;
 
 import java.text.ParseException;
 

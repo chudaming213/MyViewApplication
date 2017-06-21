@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.onon.test.myviewapplication.svgblog;
+package com.onon.test.myviewapplication.view.svgblog;
 
 import java.text.ParseException;
 
@@ -27,7 +27,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.PointF;
-import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;

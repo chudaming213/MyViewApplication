@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package com.onon.test.myviewapplication.svgblog;
-
-import android.util.FloatMath;
+package com.onon.test.myviewapplication.view.svgblog;
 
 public class MathUtil {
 

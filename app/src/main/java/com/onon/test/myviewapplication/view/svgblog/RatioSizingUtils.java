@@ -1,4 +1,4 @@
-package com.onon.test.myviewapplication.svgblog;
+package com.onon.test.myviewapplication.view.svgblog;
 
 import android.content.Context;
 import android.content.res.TypedArray;

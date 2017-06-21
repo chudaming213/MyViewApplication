@@ -15,8 +15,8 @@ import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 import com.onon.test.myviewapplication.R;
-import com.onon.test.myviewapplication.svgblog.AnimatedSvgView;
-import com.onon.test.myviewapplication.svgblog.GAStudioPath;
+import com.onon.test.myviewapplication.view.svgblog.AnimatedSvgView;
+import com.onon.test.myviewapplication.view.svgblog.GAStudioPath;
 
 public class SVGActivity extends Activity {
 
@@ -48,20 +48,20 @@ public class SVGActivity extends Activity {
                         210
                 },
                 new int[] {
-                        00
+                        231
                 },
                 new int[] {
-                        180
+                        84
                 },
                 new int[] {
-                        00
+                        84
                 });
 
         // �����ߵ���ɫ
-        int traceColor = Color.argb(255, 0, 200, 100);
+        int traceColor = Color.argb(255, 231, 84, 84);
         int[] traceColors = new int[2]; // 4 glyphs
         // ��Ե�ߵ���ɫ
-        int residueColor = Color.argb(80, 175, 190, 6);
+        int residueColor = Color.argb(80, 231, 84, 84);
         int[] residueColors = new int[2]; // 4 glyphs
 
         // Every glyph will have the same trace/residue
