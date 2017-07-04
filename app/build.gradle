@@ -19,16 +19,22 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
+
+        if (project.properties.containsKey("enviroment")) {
+            def enviroment = project.getProperties().get("enviroment");
+            buildConfigField 'Integer', 'ENVIRONMENTID', enviroment
+        }else {
+            buildConfigField 'Integer', 'ENVIRONMENTID', '1'
+        }
     }
-    printf('printf printf printf    ')
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors {
-    }
+
 }
 
 dependencies {
