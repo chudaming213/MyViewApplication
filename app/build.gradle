@@ -31,28 +31,33 @@ android {
         applicationId "com.onon.test.myviewapplication"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 10
+        versionCode java.lang.Integer.parseInt(VERSION_CODE_INT)
         versionName VERSION_NAME_STRING
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
-
-        if (project.properties.containsKey("enviroment")) {
-            def enviroment = project.getProperties().get("enviroment");
-            print("enviroment==" + enviroment)
-            if (enviroment != null) {
-                if (enviroment.equals("develop"))
-                    buildConfigField 'Integer', 'ENVIRONMENTID', '0'
-                if (enviroment.equals("test"))
-                    buildConfigField 'Integer', 'ENVIRONMENTID', '1'
-                if (enviroment.equals("product"))
-                    buildConfigField 'Integer', 'ENVIRONMENTID', '2'
-            } else {
-                buildConfigField 'Integer', 'ENVIRONMENTID', '2'
-            }
-        } else {
+        if (VERSION_CODE_INT.equals("develop"))
+            buildConfigField 'Integer', 'ENVIRONMENTID', '0'
+        if (VERSION_CODE_INT.equals("test"))
+            buildConfigField 'Integer', 'ENVIRONMENTID', '1'
+        if (VERSION_CODE_INT.equals("product"))
             buildConfigField 'Integer', 'ENVIRONMENTID', '2'
-        }
-        println("ENVIRONMENTID==" + getBuildConfigFields().get("ENVIRONMENTID"))
+//        if (project.properties.containsKey("enviroment")) {
+//            def enviroment = project.getProperties().get("enviroment");
+//            print("enviroment==" + enviroment)
+//            if (enviroment != null) {
+//                if (enviroment.equals("develop"))
+//                    buildConfigField 'Integer', 'ENVIRONMENTID', '0'
+//                if (enviroment.equals("test"))
+//                    buildConfigField 'Integer', 'ENVIRONMENTID', '1'
+//                if (enviroment.equals("product"))
+//                    buildConfigField 'Integer', 'ENVIRONMENTID', '2'
+//            } else {
+//                buildConfigField 'Integer', 'ENVIRONMENTID', '2'
+//            }
+//        } else {
+//            buildConfigField 'Integer', 'ENVIRONMENTID', '2'
+//        }
+//        println("ENVIRONMENTID==" + getBuildConfigFields().get("ENVIRONMENTID"))
     }
 
     buildTypes {
