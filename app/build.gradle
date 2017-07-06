@@ -66,7 +66,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    productFlavors {
+        xiaomi {
+            manifestPlaceholders = [channelName: "xiaomi"]
+        }
+        huawei {
+            manifestPlaceholders = [channelName: "huawei"]
+        }
+        wandoujia {
+            manifestPlaceholders = [channelName: "wandoujia"]
+        }
+    }
 
 }
 
