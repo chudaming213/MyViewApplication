@@ -9,6 +9,7 @@ import android.view.View;
 import com.onon.test.myviewapplication.viewactivities.ConstraintlayoutActivity;
 import com.onon.test.myviewapplication.viewactivities.CycleViewPagerActivity;
 import com.onon.test.myviewapplication.viewactivities.FlexboxlayoutActivity;
+import com.onon.test.myviewapplication.viewactivities.HeartActivity;
 import com.onon.test.myviewapplication.viewactivities.SVGActivity;
 
 public class MainActivity extends Activity {
@@ -39,6 +40,12 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, CycleViewPagerActivity.class));
+            }
+        });
+        findViewById(R.id.heart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, HeartActivity.class));
             }
         });
     }
