@@ -117,9 +117,15 @@ public class KuwoCurtainView extends RelativeLayout {
         addView(item);
     }
 
-    public void release() {
+    private void release() {
         removeCallbacks(delayShowNext);
         itemManager.clearStorage();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        release();
+        super.onDetachedFromWindow();
     }
 
     /**
