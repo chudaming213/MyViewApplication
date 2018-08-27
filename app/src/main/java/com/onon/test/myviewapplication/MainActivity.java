@@ -2,10 +2,10 @@ package com.onon.test.myviewapplication;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.onon.test.myviewapplication.viewactivities.CurtainActivity;
 import com.onon.test.myviewapplication.viewactivities.ConstraintlayoutActivity;
 import com.onon.test.myviewapplication.viewactivities.CycleViewPagerActivity;
 import com.onon.test.myviewapplication.viewactivities.FlexboxlayoutActivity;
@@ -46,6 +46,12 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, HeartActivity.class));
+            }
+        });
+        findViewById(R.id.curtain).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CurtainActivity.class));
             }
         });
     }

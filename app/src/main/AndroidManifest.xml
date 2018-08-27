@@ -21,7 +21,8 @@
         <activity android:name=".viewactivities.ConstraintlayoutActivity" />
         <activity android:name=".viewactivities.SVGActivity" />
         <activity android:name=".viewactivities.CycleViewPagerActivity" />
-        <activity android:name=".viewactivities.HeartActivity"></activity>
+        <activity android:name=".viewactivities.HeartActivity" />
+        <activity android:name=".viewactivities.CurtainActivity"></activity>
     </application>
 
 </manifest>

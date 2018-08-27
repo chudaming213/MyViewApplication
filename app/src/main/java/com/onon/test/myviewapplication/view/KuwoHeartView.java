@@ -24,7 +24,7 @@ import java.util.Random;
 
 public class KuwoHeartView extends View {
     //飘心路线数量
-    int heartCount = 5;
+    int heartCount = 3;
     int heartResId = R.mipmap.heart_red_small;
     private Bitmap bitmap;
     private Paint paint;

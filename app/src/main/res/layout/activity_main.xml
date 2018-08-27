@@ -24,14 +24,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="svg" />
+
     <Button
         android:id="@+id/cycleviewpager"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="cycleviewpager" />
+
     <Button
         android:id="@+id/heart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="heart" />
+
+    <Button
+        android:id="@+id/curtain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上下弹幕" />
 </LinearLayout>
