@@ -37,7 +37,7 @@ public class CurtainActivity extends AppCompatActivity {
             }
 
             @Override
-            public long getItemBottemStayDuration(int pos) {
+            public long getItemStayOutDuration(int pos) {
                 return 1000 * (pos%5+1);
             }
         };

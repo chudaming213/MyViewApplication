@@ -42,4 +42,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="上下弹幕" />
+    <Button
+        android:id="@+id/curtain_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="左右弹幕" />
 </LinearLayout>

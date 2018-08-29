@@ -22,7 +22,8 @@
         <activity android:name=".viewactivities.SVGActivity" />
         <activity android:name=".viewactivities.CycleViewPagerActivity" />
         <activity android:name=".viewactivities.HeartActivity" />
-        <activity android:name=".viewactivities.CurtainActivity"></activity>
+        <activity android:name=".viewactivities.CurtainActivity" />
+        <activity android:name=".viewactivities.HorizentalCurtainActivity"></activity>
     </application>
 
 </manifest>
