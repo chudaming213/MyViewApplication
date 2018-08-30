@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/imageView"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/bg_feed_show_liver_msg"
         android:text="@string/app_name"
         android:textSize="19sp" />
 </RelativeLayout>

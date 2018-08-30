@@ -22,7 +22,7 @@ public class HorizentalCurtainActivity extends AppCompatActivity {
             }
         });
         hcurtainview.setOrientationMode(KuwoCurtainView.HORIZONTAL);
-        hcurtainview.setSpeedFactor(8);
+        hcurtainview.setSpeedFactor(10);
         hcurtainview.setAdapter(new KuwoCurtainView.CurtainViewAdapter() {
             @Override
             public int getItemCount() {
@@ -38,13 +38,13 @@ public class HorizentalCurtainActivity extends AppCompatActivity {
 //                TextView tv_pos = (TextView) view.findViewById(R.id.tv_pos);
                 TextView tv_pos = (TextView) view;
                 tv_pos.setSingleLine(true);
-                tv_pos.setText("电脑有装。。但是十天半但是十天半但是十天半但是十天半个吗？==" + pos);
+                tv_pos.setText("电脑有=" + pos);
                 return view;
             }
 
             @Override
             public long getItemStayOutDuration(int pos) {
-                return 1000;
+                return 0;
             }
         });
     }

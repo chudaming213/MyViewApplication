@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -19,9 +20,9 @@ import java.util.ArrayList;
 /**
  * Created by cdm on 2018/8/24.
  * 自动滚动的弹幕
- *
- *  对orientationMode取值{ HORIZONTAL，VERTICAL } 改变 滚动方向
- *  改变speedFactor改变 滚动速度
+ * <p>
+ * 对orientationMode取值{ HORIZONTAL，VERTICAL } 改变 滚动方向
+ * 改变speedFactor改变 滚动速度  (时间间隔为0，速度过快时，效果不是很好)
  */
 
 public class KuwoCurtainView extends FrameLayout {
@@ -37,17 +38,22 @@ public class KuwoCurtainView extends FrameLayout {
     private Runnable delayShowNext = new Runnable() {
         @Override
         public void run() {
+            preAddItem = false;
             showNext();
         }
     };
     private CurtainViewAdapter curtainViewAdapter;
     private ItemManager itemManager;
-
+    //是不是已经准备 添加item了
+    private boolean preAddItem = false;
+    //条目之间的距离
+    private int itemSpace = 10;
     //速度因子 速度与之成正比
-    private int speedFactor = 3;
+    private int speedFactor = 5;
 
     //水平弹幕or 垂直弹幕
     private int orientationMode = VERTICAL;
+    private float newItemStartPos;
 
 
     public KuwoCurtainView(Context context) {
@@ -77,11 +83,13 @@ public class KuwoCurtainView extends FrameLayout {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (!animItems()) {
-            if (curtainViewAdapter != null) {
+            if (curtainViewAdapter != null && !preAddItem) {
+                preAddItem = true;
                 postDelayed(delayShowNext, curtainViewAdapter.getItemStayOutDuration(mCurPos));
             }
         }
     }
+
     /**
      * @return childcount>0  返回 true 否则返回false
      */
@@ -90,38 +98,32 @@ public class KuwoCurtainView extends FrameLayout {
             View bottomView = getChildAt(getChildCount() - 1);
             if (orientationMode == VERTICAL) {
                 //垂直的情况
-                if (bottomView.getY() + bottomView.getHeight() > getHeight()) {
+                if (bottomView.getY() + bottomView.getHeight() - getHeight() >= speedFactor) {
                     //每次刷新的更新所有子视图位置
-                    for (int i = 0; i < getChildCount(); i++) {
-                        getChildAt(i).setTranslationY(getChildAt(i).getTranslationY() - speedFactor);
-                    }
-                    //尝试回收 第一个可视的条目
-                    View firstView = getChildAt(0);
-                    if (firstView.getY() + firstView.getHeight() < 0) {
-                        removeView(firstView);
-                        itemManager.storeItem(firstView);
-                    }
+                    moveItemsVertical();
                     //不断刷新界面
-                    postInvalidateOnAnimation();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        postInvalidateOnAnimation();
+                    } else {
+                        postInvalidate();
+                    }
                 } else {
+                    newItemStartPos = bottomView.getY() + bottomView.getHeight() - getHeight();
                     tryAddNextItem();
                 }
             } else {
                 //水平的情况
-                if (bottomView.getX() + bottomView.getWidth() > getWidth()) {
+                if (bottomView.getX() + bottomView.getWidth() - getWidth() >= speedFactor) {
                     //每次刷新的更新所有子视图位置
-                    for (int i = 0; i < getChildCount(); i++) {
-                        getChildAt(i).setTranslationX(getChildAt(i).getTranslationX() - speedFactor);
-                    }
-                    //尝试回收 第一个可视的条目
-                    View firstView = getChildAt(0);
-                    if (firstView.getX() + firstView.getWidth() < 0) {
-                        removeView(firstView);
-                        itemManager.storeItem(firstView);
-                    }
+                    moveItemsHorizontal();
                     //不断刷新界面
-                    postInvalidateOnAnimation();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        postInvalidateOnAnimation();
+                    } else {
+                        postInvalidate();
+                    }
                 } else {
+                    newItemStartPos = bottomView.getX() + bottomView.getWidth() - getWidth();
                     tryAddNextItem();
                 }
             }
@@ -130,14 +132,44 @@ public class KuwoCurtainView extends FrameLayout {
         return false;
     }
 
+    private void moveItemsHorizontal() {
+        for (int i = 0; i < getChildCount(); i++) {
+            getChildAt(i).setTranslationX(getChildAt(i).getTranslationX() - speedFactor);
+        }
+        //尝试回收 第一个可视的条目
+        View firstView = getChildAt(0);
+        if (firstView.getX() + firstView.getWidth() < 0) {
+            removeView(firstView);
+            itemManager.storeItem(firstView);
+        }
+    }
+
+    private void moveItemsVertical() {
+        for (int i = 0; i < getChildCount(); i++) {
+            getChildAt(i).setTranslationY(getChildAt(i).getTranslationY() - speedFactor);
+        }
+        //尝试回收 第一个可视的条目
+        View firstView = getChildAt(0);
+        if (firstView.getY() + firstView.getHeight() < 0) {
+            removeView(firstView);
+            itemManager.storeItem(firstView);
+        }
+    }
+
     /**
      * 尝试展示下一个
      */
     private void tryAddNextItem() {
         if (curtainViewAdapter != null) {
+            //确保每次只添加一个
+            if (preAddItem) {
+                return;
+            }
+            preAddItem = true;
             postDelayed(delayShowNext, curtainViewAdapter.getItemStayOutDuration(mCurPos));
         } else {
             removeCallbacks(delayShowNext);
+            preAddItem = false;
         }
     }
 
@@ -158,7 +190,7 @@ public class KuwoCurtainView extends FrameLayout {
      */
     public void showNext() {
         if (curtainViewAdapter != null) {
-            if (curtainViewAdapter.getItemCount() < 0) {
+            if (curtainViewAdapter.getItemCount() <= 0) {
                 return;
             }
             View item = curtainViewAdapter.getItem(itemManager.getAnItem(mCurPos + 1), mCurPos);
@@ -182,14 +214,14 @@ public class KuwoCurtainView extends FrameLayout {
         }
         if (orientationMode == VERTICAL) {
             item.setX(0);
-            item.setY(getHeight());
+            item.setY(getHeight() + itemSpace + newItemStartPos);
         } else {
             item.setX(0);
             item.setY(0);
-            item.setTranslationX(getWidth());
+            item.setTranslationX(getWidth() + itemSpace + newItemStartPos);
             if (item instanceof TextView) {
                 CharSequence text = ((TextView) item).getText();
-                layoutParams.width = (int) ((TextView) item).getPaint().measureText(text, 0, text.length());
+                layoutParams.width = (int) ((TextView) item).getPaint().measureText(text, 0, text.length()) + item.getPaddingLeft() + item.getPaddingRight();
             }
         }
         addView(item, layoutParams);
@@ -197,6 +229,7 @@ public class KuwoCurtainView extends FrameLayout {
 
     private void release() {
         removeCallbacks(delayShowNext);
+        preAddItem = false;
         itemManager.clearStorage();
     }
 
@@ -255,6 +288,7 @@ public class KuwoCurtainView extends FrameLayout {
     }
 
     public void setSpeedFactor(int speedFactor) {
+        speedFactor = speedFactor < 0 ? 0 : speedFactor;
         this.speedFactor = speedFactor;
     }
 
@@ -267,6 +301,14 @@ public class KuwoCurtainView extends FrameLayout {
         setAdapter(curtainViewAdapter);
     }
 
+    public int getItemSpace() {
+        return itemSpace;
+    }
+
+    public void setItemSpace(int itemSpace) {
+        this.itemSpace = itemSpace;
+    }
+
     public CurtainViewAdapter getAdapter() {
         return curtainViewAdapter;
     }
@@ -277,6 +319,7 @@ public class KuwoCurtainView extends FrameLayout {
         itemManager.clearStorage();
         mCurPos = 0;
         this.curtainViewAdapter = curtainViewAdapter;
+        preAddItem = false;
         invalidate();
     }
 }
